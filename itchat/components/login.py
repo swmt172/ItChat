@@ -51,8 +51,9 @@ def login(self, enableCmdQR=False, picDir=None, qrCallback=None,
         isLoggedIn = False
         while not isLoggedIn:
             status = self.check_login()
-            if hasattr(qrCallback, '__call__'):
-                qrCallback(uuid=self.uuid, status=status, qrcode=qrStorage.getvalue())
+            # the following qr callback is a duplication this already be fired in self.get_QR
+            # if hasattr(qrCallback, '__call__'):
+            #     qrCallback(uuid=self.uuid, status=status, qrcode=qrStorage.getvalue())
             if status == '200':
                 isLoggedIn = True
             elif status == '201':
