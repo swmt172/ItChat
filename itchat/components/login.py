@@ -31,7 +31,7 @@ def load_login(core):
     core.logout            = logout
 
 def login(self, enableCmdQR=False, picDir=None, qrCallback=None,
-        loginCallback=None, exitCallback=None):
+        loginCallback=None, exitCallback=None, check_login_callback=None):
     if self.alive or self.isLogging:
         logger.warning('itchat has already logged in.')
         return
@@ -51,6 +51,8 @@ def login(self, enableCmdQR=False, picDir=None, qrCallback=None,
         isLoggedIn = False
         while not isLoggedIn:
             status = self.check_login()
+            if hasattr(check_login_callback, '__call__'):
+                check_login_callback()
             # the following qr callback is a duplication this already be fired in self.get_QR
             # if hasattr(qrCallback, '__call__'):
             #     qrCallback(uuid=self.uuid, status=status, qrcode=qrStorage.getvalue())
