@@ -88,7 +88,7 @@ def run(self, debug=False, blockThread=True):
     def reply_fn():
         try:
             while self.alive:
-                if hasattr(self, 'is_auto_reply_alive') and self.is_auto_reply_alive is False:
+                if hasattr(self, 'is_auto_reply_alive') and not self.is_auto_reply_alive:
                     raise RuntimeError('something is wrong with the autoreply process')
                 self.configured_reply()
         except KeyboardInterrupt:
